@@ -1,0 +1,45 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+//inisialisasi struct
+struct data{
+	int number;
+	//pointer untuk menampung percabangan kiri dan kanan
+	data *left, *right;
+}*root;
+
+//searching data
+void search(data **current, int number){
+	//jika pointer current memiliki data
+	if((*current)!=NULL){
+		//cek, apakah datanya lebih kecil. Jika iya, belok ke kiri
+		if(number<(*current)->number){
+			search(&(*current)->left,number);
+		//jika lebih besar, maka belok ke kanan
+		}else if(number>(*current)->number){
+			search(&(*current)->right,number);
+		//jika sama dengan, maka angka ketemu
+		}else{
+			printf("Found : %d", (*current)->number);
+		}
+	//jika tidak ada data lagi (not found)
+	}else{
+		printf("Not Found.");
+	}
+}
+
+void main(){
+	push(&root, 11);
+	push(&root, 22);
+	push(&root, 13);
+	push(&root, 15);
+	push(&root, 9);
+	inOrder(&root);
+	printf("\n");
+	preOrder(&root);
+	printf("\n");
+	postOrder(&root);
+	printf("\n");
+	search(&root,91);
+	getchar();
+}
